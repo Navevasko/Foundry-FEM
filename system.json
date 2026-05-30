@@ -1,0 +1,37 @@
+{
+  "id": "fem",
+  "title": "Feiticeiros e Maldições",
+  "description": "Um sistema para Feiticeiros e Maldições",
+  "version": "0.0.1",
+  "authors": [
+    {
+      "name": "Guilherme Navevaiko"
+    },
+    {
+      "name": "Gabriel Mochiute"
+    }
+  ],
+  "compatibility": {
+    "minimum": "13",
+    "maximum": "14",
+    "verified": "14.360"
+  },
+  "esmodules": [
+    "fem.js"
+  ],
+  "styles": [
+    "fem.css"
+  ],
+  "languages": [
+    {
+      "lang": "pt-BR",
+      "name": "Portugês Brasileiro",
+      "path": "./lang/pt-BR.json"
+    }
+  ],
+  "socket": false,
+  "grid": {
+    "distance": 1,
+    "units": "Meter"
+  }
+}
