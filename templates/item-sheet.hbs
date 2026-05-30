@@ -1,0 +1,155 @@
+<form class="{{cssClass}}" autocomplete="off">
+  <header class="sheet-header">
+    <img class="profile" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+    <div class="identity">
+      <input class="actor-name" name="name" type="text" value="{{item.name}}" placeholder="Nome" />
+      <div class="identity-grid">
+        <label>Quantidade <input type="number" name="system.quantity" value="{{system.quantity}}" /></label>
+        <label>Custo <input type="text" name="system.cost" value="{{system.cost}}" /></label>
+        <label>Nivel <input type="number" name="system.level" value="{{system.level}}" /></label>
+        <label>Acao
+          <select name="system.action">
+            <option value="">Escolher</option>
+            {{#select selectedAction}}
+            {{#each actionOptions as |label key|}}
+            <option value="{{key}}">{{label}}</option>
+            {{/each}}
+            {{/select}}
+          </select>
+        </label>
+      </div>
+    </div>
+  </header>
+
+  <section class="item-fields">
+    <label>Dano <input type="text" name="system.damage" value="{{system.damage}}" placeholder="Ex.: 1d8 + 3" /></label>
+    <label>Tipo de dano
+      <select name="system.damageType">
+        <option value="">Nenhum</option>
+        {{#select selectedDamageType}}
+        {{#each damageTypeOptions as |label key|}}
+        <option value="{{key}}">{{label}}</option>
+        {{/each}}
+        {{/select}}
+      </select>
+    </label>
+    <label>Pericia
+      <select name="system.skill">
+        <option value="">Nenhuma</option>
+        {{#select system.skill}}
+        {{#each skillOptions as |skill key|}}
+        <option value="{{key}}">{{skill.label}}</option>
+        {{/each}}
+        {{/select}}
+      </select>
+    </label>
+    <label>Categoria
+      <select name="system.category">
+        <option value="">Nenhuma</option>
+        {{#select selectedCategory}}
+        {{#each categoryOptions as |label key|}}
+        <option value="{{key}}">{{label}}</option>
+        {{/each}}
+        {{/select}}
+      </select>
+    </label>
+    <label>Aptidao base
+      <select name="system.aptitude">
+        <option value="">Nenhuma</option>
+        {{#select selectedAptitude}}
+        {{#each aptitudeTypeOptions as |label key|}}
+        <option value="{{key}}">{{label}}</option>
+        {{/each}}
+        {{/select}}
+      </select>
+    </label>
+    <label>Atributo de CD
+      <select name="system.dcAttribute">
+        <option value="">Padrao</option>
+        {{#select selectedAttribute}}
+        {{#each attributeOptions as |label key|}}
+        <option value="{{key}}">{{label}}</option>
+        {{/each}}
+        {{/select}}
+      </select>
+    </label>
+    <label>Modo de uso
+      <select name="system.useMode">
+        <option value="">Nenhum</option>
+        {{#select selectedUseMode}}
+        {{#each techniqueUseModeOptions as |label key|}}
+        <option value="{{key}}">{{label}}</option>
+        {{/each}}
+        {{/select}}
+      </select>
+    </label>
+    <label>Teste de resistencia
+      <select name="system.saveSkill">
+        <option value="">Nenhum</option>
+        {{#select system.saveSkill}}
+        <option value="cunning">Astucia</option>
+        <option value="fortitude">Fortitude</option>
+        <option value="reflexes">Reflexos</option>
+        <option value="will">Vontade</option>
+        <option value="integrity">Integridade</option>
+        {{/select}}
+      </select>
+    </label>
+    <label>Custo de ativacao <input type="text" name="system.activationCost" value="{{system.activationCost}}" /></label>
+    <label>Duracao <input type="text" name="system.duration" value="{{system.duration}}" /></label>
+    <label>Alvo <input type="text" name="system.target" value="{{system.target}}" /></label>
+    <label>Area <input type="text" name="system.area" value="{{system.area}}" /></label>
+    <label>Cura <input type="text" name="system.healing" value="{{system.healing}}" /></label>
+    <label>Pre-requisitos <input type="text" name="system.requirements" value="{{system.requirements}}" /></label>
+    <label>Efeito automatico
+      <select name="system.effectKey">
+        <option value="">Nenhum</option>
+        {{#select selectedEffectKey}}
+        {{#each effectKeyOptions as |label key|}}
+        <option value="{{key}}">{{label}}</option>
+        {{/each}}
+        {{/select}}
+      </select>
+    </label>
+    <label>Valor do efeito <input type="number" name="system.effectValue" value="{{system.effectValue}}" /></label>
+    <label>Automacao
+      <select name="system.automationKey">
+        <option value="">Nenhuma</option>
+        {{#select selectedAutomationKey}}
+        {{#each automationKeyOptions as |label key|}}
+        <option value="{{key}}">{{label}}</option>
+        {{/each}}
+        {{/select}}
+      </select>
+    </label>
+    <label>Recuperacao
+      <select name="system.usesRecovery">
+        <option value="">Nenhuma</option>
+        {{#select selectedRecovery}}
+        {{#each recoveryOptions as |label key|}}
+        <option value="{{key}}">{{label}}</option>
+        {{/each}}
+        {{/select}}
+      </select>
+    </label>
+    <label>Usos atuais <input type="number" name="system.uses.value" value="{{system.uses.value}}" /></label>
+    <label>Usos maximos <input type="number" name="system.uses.max" value="{{system.uses.max}}" /></label>
+    <label>Especializacao
+      <select name="system.specialization">
+        <option value="">Nenhuma</option>
+        {{#select system.specialization}}
+        {{#each specializationOptions as |spec key|}}
+        <option value="{{key}}">{{spec.label}}</option>
+        {{/each}}
+        {{/select}}
+      </select>
+    </label>
+    <label>Alcance <input type="text" name="system.range" value="{{system.range}}" /></label>
+    <label>Propriedades <input type="text" name="system.properties" value="{{system.properties}}" /></label>
+    <label class="equipped"><input type="checkbox" name="system.equipped" {{checked system.equipped}} /> Equipado</label>
+  </section>
+
+  <section class="description">
+    {{editor system.description target="system.description" button=true editable=editable engine="prosemirror"}}
+  </section>
+</form>

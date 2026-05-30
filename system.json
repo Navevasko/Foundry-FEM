@@ -1,37 +1,48 @@
 {
-  "id": "fem",
-  "title": "Feiticeiros e Maldições",
-  "description": "Um sistema para Feiticeiros e Maldições",
-  "version": "0.0.1",
+  "id": "feiticeiros-e-maldicoes",
+  "title": "Feiticeiros e Maldiçoes",
+  "description": "Sistema nao oficial para jogar Feiticeiros e Maldicoes no Foundry VTT.",
+  "version": "0.2.3",
+  "compatibility": {
+    "minimum": "12",
+    "verified": "14"
+  },
   "authors": [
     {
-      "name": "Guilherme Navevaiko"
-    },
-    {
-      "name": "Gabriel Mochiute"
+      "name": "Mochiute Gabriel"
     }
   ],
-  "compatibility": {
-    "minimum": "13",
-    "maximum": "14",
-    "verified": "14.360"
-  },
   "esmodules": [
-    "fem.js"
+    "scripts/feiticeiros-e-maldicoes.mjs"
   ],
   "styles": [
-    "fem.css"
+    "styles/feiticeiros-e-maldicoes.css"
   ],
   "languages": [
     {
       "lang": "pt-BR",
-      "name": "Portugês Brasileiro",
-      "path": "./lang/pt-BR.json"
+      "name": "Portugues",
+      "path": "lang/pt-BR.json"
     }
   ],
+  "documentTypes": {
+    "Actor": {
+      "personagem": {},
+      "npc": {},
+      "invocacao": {}
+    },
+    "Item": {
+      "arma": {},
+      "uniforme": {},
+      "escudo": {},
+      "equipamento": {},
+      "habilidade": {},
+      "tecnica": {},
+      "talento": {},
+      "aptidao": {}
+    }
+  },
+  "packs": [],
   "socket": false,
-  "grid": {
-    "distance": 1,
-    "units": "Meter"
-  }
+  "initiative": "@attributes.dex.mod"
 }

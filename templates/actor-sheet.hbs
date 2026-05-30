@@ -1,0 +1,425 @@
+<form class="{{cssClass}}" autocomplete="off">
+  <header class="sheet-header">
+    <img class="profile" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+    <section class="identity">
+      <input class="actor-name" name="name" type="text" value="{{actor.name}}" placeholder="Nome" />
+      <div class="identity-grid">
+        <label>Nivel <input type="number" name="system.level" value="{{system.level}}" /></label>
+        <label>Grau <input type="text" name="system.grade" value="{{system.grade}}" /></label>
+        <label>Origem
+          <select name="system.origin">
+            <option value="">Nenhuma</option>
+            {{#select system.origin}}
+            {{#each config.origins as |origin key|}}
+            <option value="{{key}}">{{origin.label}}</option>
+            {{/each}}
+            {{/select}}
+          </select>
+        </label>
+        <label>Especializacao
+          <select name="system.specialization">
+            <option value="">Nenhuma</option>
+            {{#select system.specialization}}
+            {{#each config.specializations as |spec key|}}
+            <option value="{{key}}">{{spec.label}}</option>
+            {{/each}}
+            {{/select}}
+          </select>
+        </label>
+      </div>
+    </section>
+  </header>
+
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="main">Ficha</a>
+    <a class="item" data-tab="skills">Pericias</a>
+    <a class="item" data-tab="abilities">Habilidades</a>
+    <a class="item" data-tab="techniques">Tecnicas</a>
+    <a class="item" data-tab="aptitudes">Aptidoes</a>
+    <a class="item" data-tab="items">Itens</a>
+    <a class="item" data-tab="notes">Notas</a>
+  </nav>
+
+  <section class="sheet-body">
+    <div class="tab" data-group="primary" data-tab="main">
+      <section class="summary-grid">
+        <div class="derived">
+          <label>Maestria <strong>+{{system.derived.mastery}}</strong></label>
+          <label>Iniciativa <input class="derived-input" type="number" value="{{system.derived.initiative}}" data-derived-adjust="initiative" title="Editar cria um ajuste manual e avisa no chat." /></label>
+          <label>Movimento
+            <span class="number-with-unit">
+              <input class="derived-input" type="number" value="{{system.derived.movement}}" data-derived-adjust="movement" title="Editar cria um ajuste manual e avisa no chat." />
+              <span>m</span>
+            </span>
+          </label>
+          <label>CA <input class="derived-input" type="number" value="{{system.derived.armor}}" data-derived-adjust="armor" title="Editar cria um ajuste manual e avisa no chat." /></label>
+          <label>Atencao <input class="derived-input" type="number" value="{{system.derived.attention}}" data-derived-adjust="attention" title="Editar cria um ajuste manual e avisa no chat." /></label>
+          <label>RD Fisica <input class="derived-input" type="number" value="{{system.derived.physicalDR}}" data-derived-adjust="physicalDR" title="Editar cria um ajuste manual e avisa no chat." /></label>
+          <label>CD Especializacao <input class="derived-input" type="number" value="{{system.derived.specializationDC}}" data-derived-adjust="specializationDC" title="Editar cria um ajuste manual e avisa no chat." /></label>
+        </div>
+        <div class="resources">
+          {{> "systems/feiticeiros-e-maldicoes/templates/parts/resource.hbs" label="PV" path="system.resources.health" resource=system.resources.health}}
+          {{> "systems/feiticeiros-e-maldicoes/templates/parts/resource.hbs" label="PE" path="system.resources.energy" resource=system.resources.energy}}
+          {{> "systems/feiticeiros-e-maldicoes/templates/parts/resource.hbs" label="Vigor" path="system.resources.vigor" resource=system.resources.vigor}}
+          {{> "systems/feiticeiros-e-maldicoes/templates/parts/resource.hbs" label="Alma" path="system.resources.soul" resource=system.resources.soul}}
+        </div>
+      </section>
+
+      <section class="attributes-grid">
+        {{#each attributes}}
+        <div class="attribute">
+          <button type="button" data-roll-attribute="{{key}}">{{label}}</button>
+          <input type="number" name="system.attributes.{{key}}.value" value="{{value}}" />
+          <strong>{{numberFormat mod sign=true}}</strong>
+        </div>
+        {{/each}}
+      </section>
+
+      <section class="technique-box">
+        <label>CD da especializacao
+          <select name="system.specializationDcAttribute">
+            {{#select system.specializationDcAttribute}}
+            {{#each specializationDcAttributes}}
+            <option value="{{key}}">{{label}}</option>
+            {{/each}}
+            {{/select}}
+          </select>
+        </label>
+        <label>Tecnica <input type="text" name="system.techniqueName" value="{{system.techniqueName}}" /></label>
+        <label>Atributo da tecnica
+          <select name="system.techniqueAttribute">
+            {{#select system.techniqueAttribute}}
+            {{#each config.attributes as |label key|}}
+            <option value="{{key}}">{{label}}</option>
+            {{/each}}
+            {{/select}}
+          </select>
+        </label>
+        <label>Pericia da tecnica
+          <select name="system.techniqueSkill">
+            {{#select system.techniqueSkill}}
+            {{#each skills}}
+            <option value="{{key}}">{{label}}</option>
+            {{/each}}
+            {{/select}}
+          </select>
+        </label>
+        <label>CD da tecnica <input class="derived-input" type="number" value="{{system.derived.techniqueDC}}" data-derived-adjust="techniqueDC" title="Editar cria um ajuste manual e avisa no chat." /></label>
+        <label class="checkbox-row"><input type="checkbox" name="system.autoResources" {{checked system.autoResources}} /> Calcular PV/PE automaticamente</label>
+        <label class="checkbox-row"><input type="checkbox" name="system.autoGrade" {{checked system.autoGrade}} /> Sugerir grau pelo nivel</label>
+      </section>
+
+      {{#if specialization}}
+      <section class="specialization-box">
+        <header>
+          <h3>{{specialization.label}}</h3>
+          <button type="button" data-apply-specialization>Aplicar especializacao</button>
+        </header>
+        <div class="specialization-grid">
+          <span>PV: {{specialization.hpFirst}} + CON no 1 nivel; depois {{specialization.hpDie}} ou {{specialization.hpFixed}} + CON</span>
+          <span>PE: {{specialization.energyPerLevel}} por nivel</span>
+          <span>Maestrias automaticas: {{autoSkillLabels}}</span>
+          <span>Pericias livres: {{freeSkillSlots}}</span>
+          <span>Equipamentos: {{specialization.equipment}}</span>
+          {{#if specializationChoices.length}}
+          <label>Escolha equivalente
+            <select name="system.specializationSkillChoice">
+              <option value="">Escolher</option>
+              {{#select system.specializationSkillChoice}}
+              {{#each specializationChoices}}
+              <option value="{{key}}">{{label}}</option>
+              {{/each}}
+              {{/select}}
+            </select>
+          </label>
+          {{/if}}
+        </div>
+      </section>
+      {{/if}}
+
+      {{#if origin}}
+      <section class="origin-box">
+        <header>
+          <h3>{{origin.label}}</h3>
+          <button type="button" data-apply-origin>Aplicar origem</button>
+        </header>
+        <div class="specialization-grid">
+          <span>Atributos: {{origin.attributeNote}}</span>
+          <span>{{origin.summary}}</span>
+          {{#if originFreeSkillSlots}}
+          <span>Pericias livres da origem: {{originFreeSkillSlots}}</span>
+          {{/if}}
+          {{#if origin.clanRequired}}
+          <label>Cla
+            <select name="system.originClan">
+              <option value="">Escolher</option>
+              {{#select system.originClan}}
+              {{#each config.clans as |clan key|}}
+              <option value="{{key}}">{{clan.label}}</option>
+              {{/each}}
+              {{/select}}
+            </select>
+          </label>
+          {{/if}}
+          {{#if clan}}
+          <span>Cla: {{clan.attributeNote}}</span>
+          <span>{{clan.summary}}</span>
+          {{#if originSkillChoices.length}}
+          <label class="checkbox-row"><input type="checkbox" name="system.originUseExpert" {{checked system.originUseExpert}} /> Trocar 2 maestrias por especialista em 1</label>
+          {{#if system.originUseExpert}}
+          <label>Especialista
+            <select name="system.originExpertSkill">
+              <option value="">Escolher</option>
+              {{#select system.originExpertSkill}}
+              {{#each originSkillChoices}}
+              <option value="{{key}}">{{label}}</option>
+              {{/each}}
+              {{/select}}
+            </select>
+          </label>
+          {{else}}
+          <label>Maestria 1
+            <select name="system.originSkillChoiceA">
+              <option value="">Escolher</option>
+              {{#select system.originSkillChoiceA}}
+              {{#each originSkillChoices}}
+              <option value="{{key}}">{{label}}</option>
+              {{/each}}
+              {{/select}}
+            </select>
+          </label>
+          <label>Maestria 2
+            <select name="system.originSkillChoiceB">
+              <option value="">Escolher</option>
+              {{#select system.originSkillChoiceB}}
+              {{#each originSkillChoices}}
+              <option value="{{key}}">{{label}}</option>
+              {{/each}}
+              {{/select}}
+            </select>
+          </label>
+          {{/if}}
+          {{/if}}
+          {{/if}}
+        </div>
+        {{#if originWarnings.length}}
+        <div class="warnings">
+          {{#each originWarnings}}<p>{{this}}</p>{{/each}}
+        </div>
+        {{/if}}
+      </section>
+      {{/if}}
+    </div>
+
+    <div class="tab" data-group="primary" data-tab="skills">
+      <div class="skill-list">
+        <div class="skill-row header">
+          <span>Pericia</span><span>Atributo</span><span>Grau</span><span>Extra</span><span>Total</span>
+        </div>
+        {{#each skills}}
+        <div class="skill-row">
+          <button type="button" data-roll-skill="{{key}}">{{label}}</button>
+          <select name="system.skills.{{key}}.attribute">
+            {{#select attribute}}
+            {{#each ../config.attributes as |attrLabel attrKey|}}
+            <option value="{{attrKey}}">{{attrLabel}}</option>
+            {{/each}}
+            {{/select}}
+          </select>
+          <select name="system.skills.{{key}}.rank">
+            {{#select rank}}
+            <option value="0">Sem</option>
+            <option value="1">Maestria</option>
+            <option value="2">Especialista</option>
+            {{/select}}
+          </select>
+          <input type="number" name="system.skills.{{key}}.bonus" value="{{bonus}}" />
+          <strong>{{numberFormat total sign=true}}</strong>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+
+    <div class="tab" data-group="primary" data-tab="abilities">
+      <section class="ability-create">
+        <select data-talent-preset>
+          <option value="">Adicionar talento...</option>
+          {{#each talentPresets}}
+          <option value="{{key}}">{{label}} - {{category}}</option>
+          {{/each}}
+        </select>
+        <button type="button" data-create-talent>Criar talento</button>
+        <button type="button" data-item-create="talento">+</button>
+      </section>
+
+      <section class="item-group">
+        <header>
+          <h3>Talentos</h3>
+        </header>
+        {{#each talentItems}}
+        <div class="item-row talent-row" data-item-id="{{id}}">
+          <img src="{{img}}" />
+          <span>{{name}}</span>
+          <span>{{system.requirements}}</span>
+          <button type="button" data-roll-item>Usar</button>
+          <button type="button" data-item-edit>Editar</button>
+          <button type="button" data-item-delete>Excluir</button>
+        </div>
+        {{/each}}
+      </section>
+
+      <section class="ability-create">
+        <select data-specialization-ability-preset>
+          <option value="">Adicionar habilidade de especializacao...</option>
+          {{#each specializationAbilityPresets}}
+          <option value="{{key}}">N{{level}} - {{label}} - {{specialization}}</option>
+          {{/each}}
+        </select>
+        <button type="button" data-create-specialization-ability>Criar habilidade</button>
+        <button type="button" data-item-create="habilidade">+</button>
+        <button type="button" data-feature-recovery="short">Descanso curto</button>
+        <button type="button" data-feature-recovery="long">Descanso longo</button>
+      </section>
+
+      <section class="item-group">
+        <header>
+          <h3>Habilidades de Especializacao</h3>
+        </header>
+        {{#each specializationAbilityItems}}
+        <div class="item-row ability-row" data-item-id="{{id}}">
+          <img src="{{img}}" />
+          <span>{{name}}</span>
+          <span>N{{system.level}}</span>
+          <span>{{actionLabel}}</span>
+          {{#if hasUses}}
+          <span class="uses-edit">
+            <input type="number" value="{{usesValue}}" data-item-use-field="value" title="Editar usos atuais avisa no chat." />
+            <span>/</span>
+            <input type="number" value="{{usesMax}}" data-item-use-field="max" title="Editar usos maximos cria ajuste manual e avisa no chat." />
+          </span>
+          {{else}}
+          <span>{{usesLabel}}</span>
+          {{/if}}
+          <button type="button" data-roll-item>Usar</button>
+          <button type="button" data-item-edit>Editar</button>
+          <button type="button" data-item-delete>Excluir</button>
+        </div>
+        {{/each}}
+      </section>
+    </div>
+
+    <div class="tab" data-group="primary" data-tab="techniques">
+      <section class="technique-profile">
+        <header>
+          <h3>{{system.techniqueName}}</h3>
+          <span>Habilidades: {{system.derived.techniqueKnown}} / {{system.derived.techniqueMax}}</span>
+          <span>Nivel maximo: {{system.derived.techniqueAccessLevel}}</span>
+          <span>CD: {{system.derived.techniqueDC}}</span>
+        </header>
+        {{editor system.techniqueDescription target="system.techniqueDescription" button=true editable=editable engine="prosemirror"}}
+      </section>
+
+      <section class="technique-create">
+        <select data-technique-level>
+          {{#each techniqueAccessOptions}}
+          <option value="{{this}}">Nivel {{this}}</option>
+          {{/each}}
+        </select>
+        <select data-technique-mode>
+          <option value="save">Dano com TR</option>
+          <option value="attack">Dano com ataque</option>
+          <option value="areaSave">Area com TR</option>
+          <option value="utility">Utilidade</option>
+          <option value="passive">Passiva</option>
+          <option value="healing">Cura</option>
+        </select>
+        <button type="button" data-create-technique>Criar habilidade</button>
+        <button type="button" data-item-create="tecnica">+</button>
+      </section>
+
+      <section class="item-group">
+        <header>
+          <h3>Habilidades de Tecnica</h3>
+        </header>
+        {{#each techniqueItems}}
+        <div class="item-row technique-row" data-item-id="{{id}}">
+          <img src="{{img}}" />
+          <span>{{name}}</span>
+          <span>N{{system.level}}</span>
+          <span>{{system.activationCost}}</span>
+          <button type="button" data-roll-item>Usar</button>
+          <button type="button" data-item-edit>Editar</button>
+          <button type="button" data-item-delete>Excluir</button>
+        </div>
+        {{/each}}
+      </section>
+    </div>
+
+    <div class="tab" data-group="primary" data-tab="aptitudes">
+      <section class="aptitude-profile">
+        <header>
+          <h3>Perfil Amaldicoado</h3>
+          <span>Aumentos: {{aptitudeSpent}} / {{system.derived.aptitudeIncreases}}</span>
+          <span>Restantes: {{aptitudeRemaining}}</span>
+        </header>
+        <div class="aptitude-grid">
+          {{#each aptitudes}}
+          <label>{{label}}
+            <input type="number" min="0" max="5" name="system.aptitudes.{{key}}.value" value="{{value}}" />
+          </label>
+          {{/each}}
+        </div>
+      </section>
+
+      <section class="aptitude-create">
+        <select data-aptitude-preset>
+          <option value="">Adicionar aptidao...</option>
+          {{#each aptitudePresets}}
+          <option value="{{key}}">{{label}} - {{category}}</option>
+          {{/each}}
+        </select>
+        <button type="button" data-create-aptitude>Criar</button>
+      </section>
+
+      <section class="item-group">
+        <header>
+          <h3>Aptidoes Amaldicoadas</h3>
+          <button type="button" data-item-create="aptidao">+</button>
+        </header>
+        {{#each aptitudeItems}}
+        <div class="item-row" data-item-id="{{id}}">
+          <img src="{{img}}" />
+          <span>{{name}}</span>
+          <button type="button" data-roll-item>Rolar</button>
+          <button type="button" data-item-edit>Editar</button>
+          <button type="button" data-item-delete>Excluir</button>
+        </div>
+        {{/each}}
+      </section>
+    </div>
+
+    <div class="tab" data-group="primary" data-tab="items">
+      {{#each nonAptitudeItemGroups}}
+      <section class="item-group">
+        <header>
+          <h3>{{label}}</h3>
+          <button type="button" data-item-create="{{type}}">+</button>
+        </header>
+        {{#each items}}
+        <div class="item-row" data-item-id="{{id}}">
+          <img src="{{img}}" />
+          <span>{{name}}</span>
+          <button type="button" data-roll-item>Rolar</button>
+          <button type="button" data-item-edit>Editar</button>
+          <button type="button" data-item-delete>Excluir</button>
+        </div>
+        {{/each}}
+      </section>
+      {{/each}}
+    </div>
+
+    <div class="tab" data-group="primary" data-tab="notes">
+      {{editor system.notes target="system.notes" button=true editable=editable engine="prosemirror"}}
+    </div>
+  </section>
+</form>

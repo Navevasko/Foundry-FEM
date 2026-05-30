@@ -1,0 +1,334 @@
+.feiticeiros-e-maldicoes.sheet {
+  --fem-ink: #1d2027;
+  --fem-muted: #5b6170;
+  --fem-line: #c9c2b7;
+  --fem-panel: #f7f4ef;
+  --fem-accent: #8f1f2d;
+  color: var(--fem-ink);
+}
+
+.feiticeiros-e-maldicoes .sheet-header {
+  display: grid;
+  grid-template-columns: 112px 1fr;
+  gap: 12px;
+  align-items: start;
+  margin-bottom: 10px;
+}
+
+.feiticeiros-e-maldicoes .profile {
+  width: 112px;
+  height: 112px;
+  object-fit: cover;
+  border: 1px solid var(--fem-line);
+}
+
+.feiticeiros-e-maldicoes .actor-name {
+  width: 100%;
+  height: 36px;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.feiticeiros-e-maldicoes .identity-grid,
+.feiticeiros-e-maldicoes .summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.feiticeiros-e-maldicoes label {
+  display: grid;
+  gap: 3px;
+  font-size: 12px;
+  color: var(--fem-muted);
+}
+
+.feiticeiros-e-maldicoes input,
+.feiticeiros-e-maldicoes select,
+.feiticeiros-e-maldicoes button {
+  min-height: 28px;
+}
+
+.feiticeiros-e-maldicoes button {
+  border: 1px solid var(--fem-line);
+  background: #fff;
+  color: var(--fem-ink);
+  cursor: pointer;
+}
+
+.feiticeiros-e-maldicoes button:hover {
+  border-color: var(--fem-accent);
+  color: var(--fem-accent);
+}
+
+.feiticeiros-e-maldicoes .sheet-tabs {
+  display: flex;
+  gap: 6px;
+  margin: 8px 0;
+  border-bottom: 1px solid var(--fem-line);
+}
+
+.feiticeiros-e-maldicoes .sheet-tabs a {
+  padding: 7px 10px;
+}
+
+.feiticeiros-e-maldicoes .sheet-tabs a.active {
+  color: var(--fem-accent);
+  border-bottom: 2px solid var(--fem-accent);
+}
+
+.feiticeiros-e-maldicoes .derived,
+.feiticeiros-e-maldicoes .resources,
+.feiticeiros-e-maldicoes .technique-box,
+.feiticeiros-e-maldicoes .specialization-box,
+.feiticeiros-e-maldicoes .origin-box,
+.feiticeiros-e-maldicoes .item-group {
+  padding: 10px;
+  border: 1px solid var(--fem-line);
+  background: var(--fem-panel);
+  border-radius: 6px;
+}
+
+.feiticeiros-e-maldicoes .derived {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.feiticeiros-e-maldicoes .derived label {
+  color: var(--fem-muted);
+}
+
+.feiticeiros-e-maldicoes .derived strong {
+  color: var(--fem-ink);
+  font-size: 18px;
+}
+
+.feiticeiros-e-maldicoes .derived-input {
+  width: 100%;
+  text-align: center;
+  font-weight: 700;
+  color: var(--fem-ink);
+}
+
+.feiticeiros-e-maldicoes .number-with-unit,
+.feiticeiros-e-maldicoes .uses-edit {
+  display: grid;
+  align-items: center;
+  gap: 4px;
+}
+
+.feiticeiros-e-maldicoes .number-with-unit {
+  grid-template-columns: 1fr auto;
+}
+
+.feiticeiros-e-maldicoes .uses-edit {
+  grid-template-columns: 42px auto 42px;
+}
+
+.feiticeiros-e-maldicoes .uses-edit input {
+  min-width: 0;
+  text-align: center;
+}
+
+.feiticeiros-e-maldicoes .resources {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.feiticeiros-e-maldicoes .resource-values {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr 1fr;
+  gap: 4px;
+  align-items: center;
+}
+
+.feiticeiros-e-maldicoes .attributes-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.feiticeiros-e-maldicoes .attribute {
+  display: grid;
+  gap: 6px;
+  padding: 8px;
+  border: 1px solid var(--fem-line);
+  background: #fff;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.feiticeiros-e-maldicoes .attribute strong {
+  font-size: 20px;
+}
+
+.feiticeiros-e-maldicoes .technique-box {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.feiticeiros-e-maldicoes .checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--fem-ink);
+}
+
+.feiticeiros-e-maldicoes .specialization-box,
+.feiticeiros-e-maldicoes .origin-box {
+  margin-top: 10px;
+}
+
+.feiticeiros-e-maldicoes .specialization-box header,
+.feiticeiros-e-maldicoes .origin-box header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.feiticeiros-e-maldicoes .specialization-box h3,
+.feiticeiros-e-maldicoes .origin-box h3 {
+  margin: 0;
+}
+
+.feiticeiros-e-maldicoes .specialization-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  font-size: 12px;
+}
+
+.feiticeiros-e-maldicoes .warnings {
+  margin-top: 8px;
+  padding: 6px 8px;
+  border-left: 3px solid var(--fem-accent);
+  background: #fff;
+  color: var(--fem-accent);
+}
+
+.feiticeiros-e-maldicoes .warnings p {
+  margin: 0;
+}
+
+.feiticeiros-e-maldicoes .skill-list {
+  display: grid;
+  gap: 4px;
+}
+
+.feiticeiros-e-maldicoes .skill-row {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 70px 60px;
+  gap: 6px;
+  align-items: center;
+}
+
+.feiticeiros-e-maldicoes .skill-row.header {
+  font-weight: 700;
+  color: var(--fem-muted);
+}
+
+.feiticeiros-e-maldicoes .item-group {
+  margin-bottom: 10px;
+}
+
+.feiticeiros-e-maldicoes .item-group header,
+.feiticeiros-e-maldicoes .item-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  align-items: center;
+}
+
+.feiticeiros-e-maldicoes .item-row {
+  grid-template-columns: 28px 1fr auto auto auto;
+  padding: 4px 0;
+  border-top: 1px solid var(--fem-line);
+}
+
+.feiticeiros-e-maldicoes .item-row img {
+  width: 28px;
+  height: 28px;
+  object-fit: cover;
+  border: 0;
+}
+
+.feiticeiros-e-maldicoes .item-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.feiticeiros-e-maldicoes .aptitude-profile,
+.feiticeiros-e-maldicoes .aptitude-create,
+.feiticeiros-e-maldicoes .technique-profile,
+.feiticeiros-e-maldicoes .technique-create,
+.feiticeiros-e-maldicoes .ability-create {
+  padding: 10px;
+  border: 1px solid var(--fem-line);
+  background: var(--fem-panel);
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.feiticeiros-e-maldicoes .aptitude-profile header,
+.feiticeiros-e-maldicoes .aptitude-create,
+.feiticeiros-e-maldicoes .technique-profile header,
+.feiticeiros-e-maldicoes .technique-create,
+.feiticeiros-e-maldicoes .ability-create {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.feiticeiros-e-maldicoes .aptitude-profile h3,
+.feiticeiros-e-maldicoes .technique-profile h3 {
+  margin: 0 auto 0 0;
+}
+
+.feiticeiros-e-maldicoes .aptitude-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.feiticeiros-e-maldicoes .aptitude-create select {
+  flex: 1;
+}
+
+.feiticeiros-e-maldicoes .technique-create select {
+  min-width: 130px;
+}
+
+.feiticeiros-e-maldicoes .technique-profile .editor {
+  min-height: 140px;
+}
+
+.feiticeiros-e-maldicoes .technique-row {
+  grid-template-columns: 28px 1fr 42px 70px auto auto auto;
+}
+
+.feiticeiros-e-maldicoes .ability-create select {
+  flex: 1;
+}
+
+.feiticeiros-e-maldicoes .ability-row {
+  grid-template-columns: 28px 1fr 42px minmax(56px, .5fr) minmax(56px, .5fr) auto auto auto;
+}
+
+.feiticeiros-e-maldicoes .talent-row {
+  grid-template-columns: 28px 1fr minmax(70px, .7fr) auto auto auto;
+}
+
+.feiticeiros-e-maldicoes .description {
+  min-height: 260px;
+}
