@@ -5,12 +5,16 @@
   "version": "0.0.1",
   "authors": [
     {
-      "name": "Guilherme Navevaiko"
+      "name": "Guilherme Navevaiko",
+      "url": "https://github.com/Navevasko"
     },
     {
-      "name": "Gabriel Mochiute"
+      "name": "Gabriel Mochiute",
+      "url": "https://github.com/mochiute"
     }
   ],
+  "url": "https://github.com/Navevasko/Foundry-FEM",
+  "manifest": "https://raw.githubusercontent.com/Navevasko/Foundry-FEM/refactor/remake/system.json",
   "compatibility": {
     "minimum": "13",
     "maximum": "14",
